@@ -1,7 +1,12 @@
 import * as S from "./input.style";
 import { useState, useEffect } from "react";
 
-const Error = ({ kind, text }) => {
+interface Props {
+  kind: string;
+  text: string;
+}
+
+const Error = ({ kind, text }: Props) => {
   const [errorText, setErrorText] = useState("");
 
   const errorTexts = {

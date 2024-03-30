@@ -26,7 +26,7 @@ export const ContentInput = styled.input`
   flex-direction: ${({ $error }) => ($error ? "column" : "row")};
   align-items: center;
   border-radius: 8px;
-  border: 1px solid ${({ $error }) => ($error ? "#FF5B56" : "#CCD5E3")};
+  border: 1px solid ${({ $error }) => ($error ? "#CCD5E3" : "#FF5B56")};
   &:focus {
     border: 1px solid #6d6afe;
   }

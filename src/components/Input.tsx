@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import * as S from "./input.style";
 import EyeOff from "../images/eye-off.svg";
 import EyeOn from "../images/eye-on.svg";
-import { ChangeEvent } from "react";
 import Error from "./Error";
 
 export interface KindOptions {
@@ -15,12 +14,13 @@ export interface KindOptions {
 export interface Props extends KindOptions {
   kind?: string;
   type?: string;
-  onChange: ChangeEvent;
+  onChange: (value: string | number) => void;
   onBlur?: Event;
   passwordCheck?: string;
+  $error?: boolean;
 }
 
-const TextForm = ({ kind, onChange, passwordCheck }: Props) => {
+const TextForm = ({ kind, onChange, passwordCheck, $error }: Props) => {
   const content = {
     id: {
       placeholder: "아이디를 입력해주세요.",
@@ -53,7 +53,7 @@ const TextForm = ({ kind, onChange, passwordCheck }: Props) => {
   const EMAILPATTERN: RegExp = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
   const PASSWORDPATTERN: RegExp = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,30}$/;
 
-  //정규식 반영
+  //정규식 타입
   type Check = {
     [key: string]: {
       isValidCheck: RegExp;
@@ -99,8 +99,9 @@ const TextForm = ({ kind, onChange, passwordCheck }: Props) => {
 
   // 온체인지시 값 적용
   const onChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setWord(e.target.value);
-    onChange(e.target.value);
+    const { value } = e.target;
+    setWord(value);
+    onChange(value);
   };
 
   const handleClick = () => {
@@ -119,6 +120,7 @@ const TextForm = ({ kind, onChange, passwordCheck }: Props) => {
           type={isType}
           onBlur={handleCheck}
           onChange={onChangeValue}
+          $error={isError}
         ></S.ContentInput>
         {kind !== "id" && (
           <S.ToggleEye onClick={handleClick}>

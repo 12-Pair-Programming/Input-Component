@@ -6,10 +6,18 @@ function InputPage() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleIdChange = (id) => {
+    setId(id);
+  };
+
+  const handlePasswordChange = (password) => {
+    setPassword(password);
+  };
+
   return (
     <A.MainBox>
-      <TextForm kind="id" onChange={setId} />
-      <TextForm kind="password" onChange={setPassword} />
+      <TextForm kind="id" onChange={handleIdChange} />
+      <TextForm kind="password" onChange={handlePasswordChange} />
       <TextForm kind="passwordRepeat" passwordCheck={password} />
     </A.MainBox>
   );
